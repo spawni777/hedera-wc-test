@@ -21,6 +21,9 @@ import {
 
 import { buildSignAndReturnTransactionParams, buildSignMessageParams } from './helpers'
 
+/**
+ * Signer that sends requests to Wallet.
+ */
 export class DAppSigner implements Signer {
   constructor(
     private readonly accountId: AccountId,

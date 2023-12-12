@@ -30,6 +30,13 @@ function _buildTransactionParams(signerAccountId: string, transaction: Transacti
   }
 }
 
+/**
+ * Builds parameters for signing and executing a transaction.
+ *
+ * @param signerAccountId - The signer's account ID.
+ * @param transaction - The transaction object to be signed and executed.
+ * @returns An object containing the signer's account ID and base64 encoded transaction.
+ */
 export function buildSignAndExecuteTransactionParams(
   signerAccountId: string,
   transaction: Transaction,
@@ -37,6 +44,13 @@ export function buildSignAndExecuteTransactionParams(
   return _buildTransactionParams(signerAccountId, transaction)
 }
 
+/**
+ * Builds parameters for signing and returning a transaction.
+ *
+ * @param signerAccountId - The signer's account ID.
+ * @param transaction - The transaction object to be signed.
+ * @returns An object containing the signer's account ID and base64 encoded transaction.
+ */
 export function buildSignAndReturnTransactionParams(
   signerAccountId: string,
   transaction: Transaction,
@@ -44,25 +58,49 @@ export function buildSignAndReturnTransactionParams(
   return _buildTransactionParams(signerAccountId, transaction)
 }
 
-type HederaSessionRequestOptions = Pick<
+/**
+ * Options used to build a Hedera session request.
+ */
+export type HederaSessionRequestOptions = Pick<
   EngineTypes.RequestParams,
   'chainId' | 'topic' | 'expiry'
 >
+
+/**
+ * Represents a request builder for Hedera sessions.
+ */
 export class HederaSessionRequest {
   public chainId: HederaSessionRequestOptions['chainId']
   public topic: HederaSessionRequestOptions['topic']
   public expiry: HederaSessionRequestOptions['expiry']
 
+  /**
+   * Constructs a new HederaSessionRequest.
+   * @param {HederaSessionRequestOptions} options - The options for the session request.
+   */
   constructor({ chainId, topic, expiry }: HederaSessionRequestOptions) {
     this.chainId = chainId
     this.topic = topic
     this.expiry = expiry
   }
 
+  /**
+   * Creates a new instance of `HederaSessionRequest`.
+   *
+   * @param {HederaSessionRequestOptions} options - Options to initialize the session request.
+   * @returns A new `HederaSessionRequest` object.
+   */
   public static create(options: HederaSessionRequestOptions) {
     return new HederaSessionRequest(options)
   }
 
+  /**
+   * Builds a request to sign and execute a transaction.
+   *
+   * @param signerAccountId - The signer's account ID.
+   * @param transaction - The transaction object to be signed and executed.
+   * @returns An object representing the request to sign and execute the transaction.
+   */
   public buildSignAndExecuteTransactionRequest(
     signerAccountId: string,
     transaction: Transaction,
@@ -78,6 +116,13 @@ export class HederaSessionRequest {
     }
   }
 
+  /**
+   * Builds a request to sign and return a transaction.
+   *
+   * @param signerAccountId - The signer's account ID.
+   * @param transaction - The transaction object to be signed.
+   * @returns An object representing the request to sign and return the transaction.
+   */
   public buildSignAndReturnTransactionRequest(
     signerAccountId: string,
     transaction: Transaction,
@@ -93,6 +138,13 @@ export class HederaSessionRequest {
     }
   }
 
+  /**
+   * Builds a request to sign messages.
+   *
+   * @param signerAccountId - The signer's account ID.
+   * @param messages - An array of messages to be signed.
+   * @returns An object representing the request to sign messages.
+   */
   public buildSignMessageRequest(signerAccountId: string, messages: (Uint8Array | string)[]) {
     return {
       chainId: this.chainId,

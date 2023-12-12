@@ -30,7 +30,11 @@ import { JsonRpcResult } from '@walletconnect/jsonrpc-types'
 
 export * from './helpers'
 
-type BaseLogger = 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'fatal'
+/**
+ * Represents a base logger level for logging purposes.
+ * Possible values include: 'error', 'warn', 'info', 'debug', 'trace', and 'fatal'.
+ */
+export type BaseLogger = 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'fatal'
 
 export class DAppConnector {
   dAppMetadata: SignClientTypes.Metadata
@@ -67,7 +71,9 @@ export class DAppConnector {
 
   /**
    * Initializes the DAppConnector instance.
-   * @param logger - `BaseLogger` for logging purposes (optional).
+   * @param params - An object containing parameters (optional).
+   * @param {BaseLogger} params.logger - The logger for logging purposes (optional).
+   * @returns Promise<void>
    */
   async init({ logger }: { logger?: BaseLogger } = {}) {
     try {
